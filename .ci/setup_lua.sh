@@ -98,7 +98,7 @@ if [ "${LUA#luajit}" != "$LUA" ]; then
   if [ "${LUAROCKS#2.}" != "${LUAROCKS}" ]; then
     configure_args+=('--lua-suffix=jit')
   else
-    configure_args+=('--lua-interpreter=luajit')
+    configure_args+=('--with-lua-interpreter=luajit')
   fi
 
   if [ "$LUA" = luajit ]; then
