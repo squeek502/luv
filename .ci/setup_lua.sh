@@ -104,9 +104,9 @@ if [ "${LUA#luajit}" != "$LUA" ]; then
   if [ "$LUA" = luajit ]; then
     luajit_ver=2.0
   else
-    luajit_ver=${LUA#luajit-}
+    luajit_ver=${LUA#luajit}
   fi
-  configure_args+=("--with-lua-include=$LUA_HOME_DIR/include/luajit-$luajit_ver")
+  configure_args+=("--with-lua-include=$LUA_HOME_DIR/include/luajit-${luajit_ver}")
 
   ./configure "${configure_args[@]}"
 else
