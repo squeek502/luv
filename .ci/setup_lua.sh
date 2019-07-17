@@ -120,6 +120,7 @@ else
 fi
 
 make build && make install
+./luarocks config
 
 ln -s "$LR_HOME_DIR/bin/luarocks" "$HOME/.lua/luarocks"
 
