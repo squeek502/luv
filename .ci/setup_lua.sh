@@ -87,7 +87,13 @@ lua -v
 
 LUAROCKS_BASE=luarocks-$LUAROCKS
 
-curl --silent --location "http://luarocks.org/releases/$LUAROCKS_BASE.tar.gz" | tar xz
+if [ "${LUAROCKS#2.}" != "${LUAROCKS}" ]; then
+  curl --silent --location "http://luarocks.org/releases/$LUAROCKS_BASE.tar.gz" | tar xz
+else
+  # test of https://github.com/luarocks/luarocks/pull/1051
+  curl --silent --location "https://github.com/luarocks/luarocks/archive/dynamic-luajit.tar.gz" | tar xz
+  LUAROCKS_BASE=luarocks-dynamic-luajit
+fi
 
 cd "$LUAROCKS_BASE"
 
