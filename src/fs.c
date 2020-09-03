@@ -909,3 +909,10 @@ static int luv_fs_statfs(lua_State* L) {
 }
 #endif
 
+#if LUV_UV_VERSION_GEQ(1, 38, 0)
+static int luv_fs_get_system_error(lua_State* L) {
+  uv_fs_t* req = luv_check_fs(L, 1);
+  lua_pushinteger(L, uv_fs_get_system_error(req));
+  return 1;
+}
+#endif

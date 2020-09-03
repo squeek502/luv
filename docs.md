@@ -2911,6 +2911,17 @@ Equivalent to `statfs(2)`.
 - `files` : `integer`
 - `ffree` : `integer`
 
+### `uv.fs_get_system_error(fs)`
+
+**Parameters:**
+- `fs`: `uv_fs_t userdata`
+
+Called on a `uv_fs_t` returned by certain `fs` functions. Returns the platform
+specific error code - `GetLastError()` value on Windows and `-(req->result)`
+on other platforms.
+
+**Returns:** `integer`
+
 ## Thread pool work scheduling
 
 [Thread pool work scheduling]: #thread-pool-work-scheduling

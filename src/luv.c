@@ -281,6 +281,9 @@ static const luaL_Reg luv_functions[] = {
 #if LUV_UV_VERSION_GEQ(1, 31, 0)
   {"fs_statfs", luv_fs_statfs},
 #endif
+#if LUV_UV_VERSION_GEQ(1, 38, 0)
+  {"fs_get_system_error", luv_fs_get_system_error},
+#endif
 
   // dns.c
   {"getaddrinfo", luv_getaddrinfo},
