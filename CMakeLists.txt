@@ -202,7 +202,7 @@ endif (BUILD_SHARED_LIBS)
 
 if(APPLE)
   set(CMAKE_SHARED_MODULE_CREATE_C_FLAGS
-    "${CMAKE_SHARED_MODULE_CREATE_C_FLAGS} -undefined dynamic_lookup"
+    "${CMAKE_SHARED_MODULE_CREATE_C_FLAGS} -undefined dynamic_lookup -Wl,-undefined,dynamic_lookup"
   )
   # execute_process(COMMAND which luajit OUTPUT_VARIABLE LUAJIT)
   # set(CMAKE_SHARED_MODULE_CREATE_C_FLAGS
