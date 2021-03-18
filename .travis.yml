@@ -43,6 +43,13 @@ script:
 jobs:
   fast_finish: true
   include:
+    - stage: check
+      name: bindings coverage
+      addons:
+        apt: # don't need cmake for this one
+      os: linux
+      script:
+        - ./.ci/bindcov.sh
     - name: macos shared
       os: osx
       env:
@@ -51,13 +58,6 @@ jobs:
         - BUILD_MODULE=Off
       script:
         - make
-    - stage: check
-      name: bindings coverage
-      addons:
-        apt: # don't need cmake for this one
-      os: linux
-      script:
-        - ./.ci/bindcov.sh
     - name: clang-asan
       os: linux
       compiler: clang
