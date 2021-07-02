@@ -142,16 +142,19 @@ jobs:
       with:
         submodules: recursive
 
+    - name: Get version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+
     - name: Setup
       run: |
         source .ci/setenv_lua.sh
         echo "$HOME/.lua" >> $GITHUB_PATH
         echo "LUA_PATH=$LUA_PATH" >> $GITHUB_ENV
         echo "LUA_CPATH=$LUA_CPATH" >> $GITHUB_ENV
-        echo "TAG=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
 
     - name: Build
-      run: .ci/make_rockspec.sh $TAG
+      run: .ci/make_rockspec.sh ${{ steps.get_version.outputs.VERSION }}
 
     - name: Github Release
       id: create_release
@@ -159,7 +162,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        files: luv-$TAG.tar.gz
+        files: luv-${{ steps.get_version.outputs.VERSION }}.tar.gz
         draft: false
         prerelease: false
 
@@ -169,4 +172,4 @@ jobs:
         LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
       run: |
         luarocks install lua-cjson
-        luarocks upload luv-$TAG.rockspec --api-key=$LUAROCKS_API_KEY --force
+        luarocks upload luv-${{ steps.get_version.outputs.VERSION }}.rockspec --api-key=$LUAROCKS_API_KEY --force
