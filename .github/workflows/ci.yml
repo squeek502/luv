@@ -136,6 +136,7 @@ jobs:
     env:
       WITH_LUA_ENGINE: LuaJIT
       LUA: luajit2.1
+      LUAROCKS: 3.7.0
     steps:
     - uses: actions/checkout@v2
       with:
