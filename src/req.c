@@ -20,6 +20,9 @@ static uv_req_t* luv_check_req(lua_State* L, int index) {
   if (luaL_testudata(L, index, "uv_fs") != NULL) {
     return (uv_req_t*)lua_touserdata(L, index);
   }
+  else if (luaL_testudata(L, index, "uv_work") != NULL) {
+    return (uv_req_t*)lua_touserdata(L, index);
+  }
   uv_req_t* req = (uv_req_t*)luaL_checkudata(L, index, "uv_req");
   luaL_argcheck(L, req->data, index, "Expected uv_req_t");
   return req;

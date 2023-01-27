@@ -659,6 +659,17 @@ static void luv_req_init(lua_State* L) {
   lua_pushcfunction(L, luv_fs_gc);
   lua_setfield(L, -2, "__gc");
   lua_pop(L, 1);
+
+  // Specialization for uv_work_t that needs special
+  // garbage collection
+  luaL_newmetatable(L, "uv_work");
+  lua_pushcfunction(L, luv_req_tostring);
+  lua_setfield(L, -2, "__tostring");
+  luaL_newlib(L, luv_req_methods);
+  lua_setfield(L, -2, "__index");
+  lua_pushcfunction(L, luv_work_gc);
+  lua_setfield(L, -2, "__gc");
+  lua_pop(L, 1);
 }
 
 // Call lua function, will pop nargs values from top of vm stack and push some
