@@ -77,13 +77,14 @@ static uv_work_t* luv_check_work(lua_State* L, int index) {
 
 static int luv_work_gc(lua_State* L) {
   uv_work_t* req = luv_check_work(L, 1);
-  printf("luv_work_gc called: %p\n", req);
-  luv_work_data_t* work_data = ((luv_req_t*)req->data)->data;
+  luv_req_t* luv_req = (luv_req_t*)req->data;
+  luv_work_data_t* work_data = luv_req->data;
   luaL_unref(L, LUA_REGISTRYINDEX, work_data->ctx_ref);
   luv_thread_arg_clear(L, &work_data->args, LUVF_THREAD_SIDE_MAIN);
   luv_thread_arg_clear(L, &work_data->rets, LUVF_THREAD_MODE_ASYNC|LUVF_THREAD_SIDE_MAIN);
   luv_cleanup_req(L, (luv_req_t*)req->data);
   req->data = NULL;
+  return 0;
 }
 
 static int luv_work_cb(lua_State* L) {
