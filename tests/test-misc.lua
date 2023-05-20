@@ -182,4 +182,13 @@ return require('lib/tap')(function (test)
     end
   end)
 
+  test("uv.metrics_info", function(print, p, expect, uv)
+    local info = uv.metrics_info()
+    p(info)
+    assert(type(info) == "table")
+    assert(type(info.loop_count) == "number")
+    assert(type(info.events) == "number")
+    assert(type(info.events_waiting) == "number")
+  end, "1.45.0")
+
 end)

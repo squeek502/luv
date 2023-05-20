@@ -3738,6 +3738,15 @@ time until calling `loop_configure` with `"metrics_idle_time"`.
 
 **Returns:** `number`
 
+### `uv.metrics_info()`
+
+Retrieve various event loop metrics. It is recommended to retrieve these metrics in a `prepare` callback (see `uv.new_prepare`, `uv.prepare_start`) in order to make sure there are no inconsistencies with the metrics counters.
+
+**Returns:** `table`
+- `loop_count` : `integer` (number of event loop iterations)
+- `events` : `integer` (number of events that have been processed by the event handler)
+- `events_waiting` : `integer` (number of events that were waiting to be processed when the event provider was called)
+
 ---
 
 [luv]: https://github.com/luvit/luv

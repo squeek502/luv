@@ -25,3 +25,18 @@ static int luv_metrics_idle_time(lua_State* L) {
   return 1;
 }
 #endif
+
+#if LUV_UV_VERSION_GEQ(1, 45, 0)
+static int luv_metrics_info(lua_State* L) {
+  uv_metrics_t metrics;
+  uv_metrics_info(luv_loop(L), &metrics);
+  lua_newtable(L);
+  lua_pushinteger(L, metrics.loop_count);
+  lua_setfield(L, -2, "loop_count");
+  lua_pushinteger(L, metrics.events);
+  lua_setfield(L, -2, "events");
+  lua_pushinteger(L, metrics.events_waiting);
+  lua_setfield(L, -2, "events_waiting");
+  return 1;
+}
+#endif
